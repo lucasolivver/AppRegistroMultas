@@ -20,7 +20,7 @@ namespace AppRegistroMultas.Contexto
 
         public MultaContext()
         {
-            dados_conexao = "server=localhost;port=3306;database=bd_registro_multa2;user=root;password=root;Persist Security Info=False;Connect Timeout=300;";
+            dados_conexao = "server=localhost;port=3306;database=bd_registro_multa;user=root;password=root;Persist Security Info=False;Connect Timeout=300;";
             conexao = new MySqlConnection(dados_conexao);
 
         }
