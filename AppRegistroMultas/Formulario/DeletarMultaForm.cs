@@ -22,7 +22,7 @@ namespace AppRegistroMultas.Formulario
             MultaContext context = new MultaContext();
             ListaMultas = context.ListarMultas(); 
             cbDeletar.DataSource = ListaMultas.ToList();
-            cbDeletar.DisplayMember = "Modelo";
+            cbDeletar.DisplayMember = "Descricao";
             cbDeletar.SelectedIndex = -1;
         }
 

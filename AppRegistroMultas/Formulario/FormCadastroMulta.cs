@@ -17,12 +17,13 @@ namespace AppRegistroMultas.Formulario
         private static int IdMulta = 1;
 
         private List<Multa> ListaTempMultas = new List<Multa>();
-        private Veiculo VeiculoSelecionado => Context.ListaVeiculos[cbVeiculo.SelectedIndex];
+        private Veiculo VeiculoSelecionado = new Veiculo();
 
         public FormCadastroMulta()
         {
             InitializeComponent();
-            cbVeiculo.DataSource = Context.ListaVeiculos.ToList();
+            VeiculoContext veiculos = new VeiculoContext();
+            cbVeiculo.DataSource = veiculos.ListarVeiculos().ToList();
             cbVeiculo.DisplayMember = "Modelo";
             cbVeiculo.SelectedIndex = -1;
         }
@@ -32,18 +33,18 @@ namespace AppRegistroMultas.Formulario
 
             if (indiceSelecionado > -1)
             {
-                btAdd.Enabled = true;
-                btSalvar.Enabled = true;
+                VeiculoContext veiculos = new VeiculoContext();
+                var veicSelec = veiculos.ListarVeiculos()[indiceSelecionado];
 
+                txtModelo.Text = veicSelec.Modelo;
+                txtMarca.Text = veicSelec.Marca;
+                txtPlaca.Text = veicSelec.Placa;
 
-                txtModelo.Text = this.VeiculoSelecionado.Modelo;
-                txtMarca.Text = this.VeiculoSelecionado.Marca;
-                txtPlaca.Text = this.VeiculoSelecionado.Placa;
+                VeiculoSelecionado = veicSelec;
             }
             else
             {
-                btAdd.Enabled = false;
-                btSalvar.Enabled = false;
+
                 LimparCaixasCarro();
             }
         }
@@ -54,8 +55,7 @@ namespace AppRegistroMultas.Formulario
             multa.Descricao = txtDescricao.Text;
             multa.ValorMulta = Convert.ToDecimal(txtValor.Text);
 
-            multa.Id = FormCadastroMulta.IdMulta++;
-            multa.VeiculoId = this.VeiculoSelecionado.Id;
+            multa.VeiculoId = VeiculoSelecionado.Id;
 
             ListaTempMultas.Add(multa);
             dtTabela.DataSource = ListaTempMultas.ToList();
@@ -69,6 +69,13 @@ namespace AppRegistroMultas.Formulario
         private void btSalvar_Click(object sender, EventArgs e)
         {
             //this.VeiculoSelecionado.ListaMultas = ListaTempMultas.ToList();
+
+            MultaContext multas = new MultaContext();
+
+            foreach (var multa in ListaTempMultas)
+            {
+                multas.InserirMulta(multa);
+            }
 
             Context.ListaMultas.AddRange(ListaTempMultas);
 

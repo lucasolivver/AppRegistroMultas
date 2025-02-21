@@ -44,9 +44,9 @@ namespace AppRegistroMultas.Formulario
             if (linhasSelec > -1 && contExc > 0)
             {
                 var veiculoSelec = ListaVeiculos[linhasSelec];
-                txtModelo.Text = veiculoSelec.Modelo;
-                txtMarca.Text = veiculoSelec.Marca;
-                txtPlaca.Text = veiculoSelec.Placa;
+                veiculoSelec.Modelo = txtModelo.Text ;
+                veiculoSelec.Marca = txtMarca.Text ;
+                veiculoSelec.Placa = txtPlaca.Text ;
 
 
                 VeiculoContext context = new VeiculoContext();

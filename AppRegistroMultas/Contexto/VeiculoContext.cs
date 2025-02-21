@@ -18,7 +18,7 @@ namespace AppRegistroMultas.Contexto
 
         public VeiculoContext()
         {
-            dados_conexao = "server=localhost;port=3306;database=bd_registro_multa;user=root;password=root;Persist Security Info=False;Connect Timeout=300;";
+            dados_conexao = "server=localhost;port=3306;database=bd_registro_multa2;user=root;password=root;Persist Security Info=False;Connect Timeout=300;";
             conexao = new MySqlConnection(dados_conexao);
 
         }
@@ -60,7 +60,7 @@ namespace AppRegistroMultas.Contexto
         public void InserirVeiculo(Veiculo veiculo)
         {
             
-            string sql = "INSERT INTO VEICULO (Modelo, Marca, Placa, Id) VALUES (@Modelo, @Marca, @Placa, @Id)";
+            string sql = "INSERT INTO VEICULO (Modelo, Marca, Placa) VALUES (@Modelo, @Marca, @Placa)";
             try
             {
                 MySqlCommand comando = new MySqlCommand(sql, conexao);
@@ -90,7 +90,7 @@ namespace AppRegistroMultas.Contexto
         public void AtualizarVeiculo(Veiculo veiculo)
         {
             
-            string sql = "UPDATE VEICULO SET Modelo = @Modelo, Marca = @Marca, Placa = @Placa, Id = @Id";
+            string sql = "UPDATE VEICULO SET Modelo = @Modelo, Marca = @Marca, Placa = @Placa WHERE Id = @Id";
 
             try
             {

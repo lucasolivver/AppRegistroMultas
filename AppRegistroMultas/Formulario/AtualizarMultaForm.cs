@@ -22,7 +22,7 @@ namespace AppRegistroMultas.Formulario
             MultaContext context = new MultaContext();
             ListaMultas = context.ListarMultas();
             cbAtualizar.DataSource = ListaMultas.ToList();
-            cbAtualizar.DisplayMember = "Modelo";
+            cbAtualizar.DisplayMember = "Descricao";
             cbAtualizar.SelectedIndex = -1;
         }
 
@@ -43,7 +43,7 @@ namespace AppRegistroMultas.Formulario
             var linhasSelec = cbAtualizar.SelectedIndex;
             if (linhasSelec > -1 && contExc > 0)
             {
-                int idMultaSelecionada = (int)cbAtualizar.SelectedValue;
+                int idMultaSelecionada = ListaMultas[cbAtualizar.SelectedIndex].Id;
                 var multaSelec = ListaMultas.FirstOrDefault(m => m.Id == idMultaSelecionada);
                 multaSelec.ValorMulta = Convert.ToDecimal(txtValor.Text);
                 multaSelec.Descricao = txtDescricao.Text;
